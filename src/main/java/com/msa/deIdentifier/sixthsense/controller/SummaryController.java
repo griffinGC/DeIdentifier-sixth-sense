@@ -1,6 +1,7 @@
 package com.msa.deIdentifier.sixthsense.controller;
 
 import com.msa.deIdentifier.sixthsense.dto.mongodb.SummaryData;
+import com.msa.deIdentifier.sixthsense.dto.mysqldb.ResultLog;
 import com.msa.deIdentifier.sixthsense.mongoRepository.SummaryDataRepo;
 import com.msa.deIdentifier.sixthsense.mysqlRepository.ResultLogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 public class SummaryController {
     @Autowired
-    SummaryDataRepo summaryDataRepo;
+    private SummaryDataRepo summaryDataRepo;
     @Autowired
     private ResultLogRepo resultLogRepo;
 
@@ -31,10 +32,10 @@ public class SummaryController {
         return summaryData;
     }
 
-//    @GetMapping("/getMysqlDB")
-//    public List<ResultLog> testResultLog(){
-//        List<ResultLog> data = resultLogRepo.findAll();
-//
-//        return data;
-//    }
+    @GetMapping("/getMysqlDB")
+    public List<ResultLog> testResultLog(){
+        List<ResultLog> data = resultLogRepo.findAll();
+
+        return data;
+    }
 }

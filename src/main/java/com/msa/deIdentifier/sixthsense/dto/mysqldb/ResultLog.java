@@ -1,6 +1,7 @@
 package com.msa.deIdentifier.sixthsense.dto.mysqldb;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 
@@ -8,21 +9,20 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 public class ResultLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
 
     @Column(nullable = false)
-    private final String fileName;
-    private final Date successDate;
+    private String fileName;
+    private Date successDate;
     @Column(nullable = false)
-    private final String originLocation;
-    private final String resultTable;
-    private final Boolean isSucceed;
-    private final Date downloadDate;
-    private final Integer downloadCnt;
+    private String originLocation;
+    private String resultTable;
+    private Boolean isSucceed;
+    private Date downloadDate;
+    private Integer downloadCnt;
 }
