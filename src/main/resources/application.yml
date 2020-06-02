@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/Mulcamp
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/arx?serverTimezone=Asia/Seoul
+    username: root
+    password: choi7687
+    driver-class-name: com.mysql.cj.jdbc.Driver
