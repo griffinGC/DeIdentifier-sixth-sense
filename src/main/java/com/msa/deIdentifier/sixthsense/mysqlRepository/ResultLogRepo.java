@@ -1,5 +1,6 @@
-package com.msa.deIdentifier.sixthsense.dto.mysqldb;
+package com.msa.deIdentifier.sixthsense.mysqlRepository;
 
+import com.msa.deIdentifier.sixthsense.dto.mysqldb.ResultLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
