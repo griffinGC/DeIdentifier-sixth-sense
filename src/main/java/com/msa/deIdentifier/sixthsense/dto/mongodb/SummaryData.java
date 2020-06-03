@@ -2,15 +2,19 @@ package com.msa.deIdentifier.sixthsense.dto.mongodb;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "Mulcamp")
 @Data
 @RequiredArgsConstructor
 public class SummaryData {
+    @Id
     private final String _id;
     private final String fileName;
-//    private final List<Summary> info;
-    private final Info[] info;
+    private final List<Info> info;
+//    private final Info[] info;
 }
 

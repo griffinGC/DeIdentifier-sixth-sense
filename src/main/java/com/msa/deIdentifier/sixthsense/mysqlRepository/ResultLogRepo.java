@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResultLogRepo extends JpaRepository<ResultLog, Long> {
-//public interface ResultLogRepo extends CrudRepository<ResultLog, Long>{
+    ResultLog findByFileName(String fileName);
 }
