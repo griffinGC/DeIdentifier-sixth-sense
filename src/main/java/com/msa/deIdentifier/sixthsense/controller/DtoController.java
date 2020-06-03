@@ -6,31 +6,48 @@ import com.msa.deIdentifier.sixthsense.service.ResultService;
 import com.msa.deIdentifier.sixthsense.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 public class DtoController {
-
-    @GetMapping("/test")
-    public String testDB(){
-        return "test DB!";
-    }
     @Autowired
     private SummaryService summaryService;
     @Autowired
     private ResultService resultService;
 
+    @GetMapping("/test")
+    public String testDB(){
+        return "test DB!";
+    }
     @GetMapping("/getMongoAll")
     public List<SummaryData> getAllMongo(){
         List<SummaryData> summaryDataList = summaryService.getSummaryAll();
         return summaryDataList;
     }
+
+    @GetMapping("/getSummary/{fileName}")
+    public SummaryData getSummaryDataByFileName(@PathVariable String fileName){
+        SummaryData summaryData = summaryService.getSummaryByFileName(fileName);
+        return summaryData;
+    }
+
     @GetMapping("/getMysqlAll")
     public List<ResultLog> getAllMysql(){
         List<ResultLog> resultLogList = resultService.getResultLogAll();
         return resultLogList;
     }
 
+    @GetMapping("/getLog/{fileName}")
+    public ResultLog getResultLogByFileName(@PathVariable String fileName){
+        ResultLog resultLog = resultService.getResultLogByFileName(fileName);
+        return resultLog;
+    }
+
+    @PostMapping("/createLog")
+    public ResultLog createResultLog(@RequestBody ResultLog resultLog){
+        ResultLog checkResult = resultService.createResultLog(resultLog);
+        return checkResult;
+    }
 }

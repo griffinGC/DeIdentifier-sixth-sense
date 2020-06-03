@@ -24,6 +24,7 @@ public class ResultServiceImpl implements ResultService{
         ResultLog resultLog1 = resultLogRepo.save(resultLog);
         System.out.println("저장한 파일 이름 : " + resultLog1.getFileName());
         System.out.println("저장한 id 이름 : " + resultLog1.getId());
+        System.out.println("저장한 시각 : " + resultLog1.getCreatedDate());
         return resultLog1;
     }
 
