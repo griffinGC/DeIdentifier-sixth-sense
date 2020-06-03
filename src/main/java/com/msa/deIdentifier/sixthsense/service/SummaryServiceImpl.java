@@ -1,7 +1,7 @@
 package com.msa.deIdentifier.sixthsense.service;
 
 import com.msa.deIdentifier.sixthsense.dto.mongodb.SummaryData;
-import com.msa.deIdentifier.sixthsense.mongoRepository.SummaryDataRepo;
+import com.msa.deIdentifier.sixthsense.repository.mongoRepository.SummaryDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;

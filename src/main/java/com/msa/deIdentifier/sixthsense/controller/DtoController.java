@@ -4,10 +4,13 @@ import com.msa.deIdentifier.sixthsense.dto.mongodb.SummaryData;
 import com.msa.deIdentifier.sixthsense.dto.mysqldb.ResultLog;
 import com.msa.deIdentifier.sixthsense.service.ResultService;
 import com.msa.deIdentifier.sixthsense.service.SummaryService;
+import com.msa.deIdentifier.sixthsense.temp.DeIdentifierTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -50,4 +53,6 @@ public class DtoController {
         ResultLog checkResult = resultService.createResultLog(resultLog);
         return checkResult;
     }
+
+
 }
