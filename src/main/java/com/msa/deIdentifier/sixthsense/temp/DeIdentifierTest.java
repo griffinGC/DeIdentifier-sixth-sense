@@ -21,7 +21,8 @@ public class DeIdentifierTest {
         DataSource source = DataSource.createCSVSource("/Users/griffindouble/downloads/police.csv", Charset.forName("EUC-KR"), ',', true);
         // 데이터 소스에서 사용하려면 원하는 컬럼 가져와야함 => mongoDB의 Summary에서 데이터 가져옴
 
-        //Mock_data
+        // Mock_data
+        // info동안 column 지정
         source.addColumn(0, DataType.INTEGER);
         source.addColumn(1, DataType.STRING);
         source.addColumn(2, DataType.STRING);
@@ -62,7 +63,7 @@ public class DeIdentifierTest {
                 System.out.println(Arrays.toString(transformed.next()));
             }
         }
-        result.getOutput(false).save("/Users/griffindouble/downloads/boot_test_anonymized.csv", ';');
+        result.getOutput(false).save("/Users/griffindouble/downloads/boot_test_anonymized.csv", ',');
     }
 
     public static Data createData(final DataSource source) throws IOException, SQLException {

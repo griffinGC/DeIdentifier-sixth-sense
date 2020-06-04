@@ -53,6 +53,4 @@ public class DtoController {
         ResultLog checkResult = resultService.createResultLog(resultLog);
         return checkResult;
     }
-
-
 }
