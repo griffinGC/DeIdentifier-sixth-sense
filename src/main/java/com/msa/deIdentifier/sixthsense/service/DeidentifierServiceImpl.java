@@ -27,7 +27,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
 
     // 비식별화
     @Override
-    public ARXResult deidentification(SummaryData summaryData) throws IOException, SQLException {
+    public ResultLog deidentification(SummaryData summaryData) throws IOException, SQLException {
         // dataSource 가져오기
         String location = "/Users/griffindouble/downloads/";
         StringBuilder fileLocation = new StringBuilder(location);
@@ -88,9 +88,8 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         }else{
             resultLog.setIsSucceed(false);
         }
-        resultService.createResultLog(resultLog);
-
-        return result;
+        // 결과값 저장하는것 필요
+        return resultService.createResultLog(resultLog);
     }
 
     // 결과값 pdf 저장
@@ -130,7 +129,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
         while(true){
             String str = bufferedReader.readLine();
-            System.out.println("변환 : " + str);
+            // System.out.println("변환 : " + str);
             if(str == null) break;
             bufferedWriter.write(str);
             bufferedWriter.newLine();

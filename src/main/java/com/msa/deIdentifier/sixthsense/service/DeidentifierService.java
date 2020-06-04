@@ -9,6 +9,6 @@ import java.sql.SQLException;
 
 
 public interface DeidentifierService {
-    ARXResult deidentification(SummaryData summaryData) throws IOException, SQLException;
+    ResultLog deidentification(SummaryData summaryData) throws IOException, SQLException;
     ResultLog saveResult(ARXResult arxResult);
 }

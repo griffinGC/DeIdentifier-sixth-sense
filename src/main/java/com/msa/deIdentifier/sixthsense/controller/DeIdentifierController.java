@@ -33,8 +33,8 @@ public class DeIdentifierController {
     @GetMapping("/deidentifier/{fileName}")
     public ResultLog testDeidentifier(@PathVariable String fileName) throws IOException, SQLException {
         SummaryData summaryData = summaryService.getSummaryByFileName(fileName);
-        ARXResult arxResult = deidentifierService.deidentification(summaryData);
-        ResultLog resultLog = deidentifierService.saveResult(arxResult);
+        ResultLog resultLog = deidentifierService.deidentification(summaryData);
+//        ResultLog resultLog = deidentifierService.saveResult(arxResult);
 
         return resultLog;
     }
