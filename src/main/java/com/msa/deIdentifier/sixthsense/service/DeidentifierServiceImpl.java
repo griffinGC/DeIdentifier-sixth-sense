@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -32,7 +34,8 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         // 저장위치 수정해야함 -> 파일이름 이용해서 파일의 origin 위치 가져와야함
         String location = "/Users/griffindouble/downloads/";
         StringBuilder fileLocation = new StringBuilder(location);
-        fileLocation.append(summaryData.getFileName());
+        String originFileName = summaryData.getFileName();
+        fileLocation.append(originFileName);
         Charset charset = Charset.forName("EUC-KR");
         char separator = ',';
         boolean containsHeader = true;
@@ -73,19 +76,33 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
 
         ARXResult result = anonymizer.anonymize(data,config);
 
+        // 최종 저장위치 수정해야함
         StringBuilder resultLocation = new StringBuilder(location);
-        String resultFilename = "/test_api.csv";
-        resultLocation.append(resultFilename);
+        resultLocation.append(originFileName.replace(".csv", ""));
+        resultLocation.append("_");
+
+        // 타임스탬프 붙임
+        LocalDateTime ldt = LocalDateTime.now();
+        Timestamp ts = Timestamp.valueOf(ldt);
+        int nowTimeStamp = ts.getNanos();
+        String timestampString = String.valueOf(nowTimeStamp);
+        resultLocation.append(timestampString);
+
+        // .csv 붙임
+        resultLocation.append(".csv");
+
         String resultFileLocation = resultLocation.toString();
         result.getOutput(false).save(resultFileLocation, separator);
-        boolean checkSave = saveCsv(resultFileLocation);
+        String checkSaveName = saveCsv(resultFileLocation);
 
         // update resultLog
         ResultLog resultLog = new ResultLog();
-        resultLog.setFileName(summaryData.getFileName());
+        resultLog.setFileName(originFileName);
         resultLog.setOriginLocation(originLocation);
-        if(checkSave){
+
+        if(!checkSaveName.equals("")){
             resultLog.setIsSucceed(true);
+            resultLog.setResultLocation(checkSaveName);
         }else{
             resultLog.setIsSucceed(false);
         }
@@ -100,7 +117,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         return null;
     }
 
-    public static boolean saveCsv(String inputFile) throws IOException {
+    public static String saveCsv(String inputFile) throws IOException {
         // 파일 읽기
         File inputPath = new File(inputFile);
 
@@ -137,11 +154,16 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         }
         bufferedReader.close();
         bufferedWriter.close();
+        if(inputPath.delete()){
+            System.out.println("UTF 변환 전 파일 삭제");
+        }else{
+            System.out.println("UTF 변환 전 파일 삭제 실패");
+        };
         System.out.println("save success");
         if(outputPath.exists()){
-            return true;
+            return resultLocation.toString();
         }else{
-            return false;
+            return "";
         }
     }
 

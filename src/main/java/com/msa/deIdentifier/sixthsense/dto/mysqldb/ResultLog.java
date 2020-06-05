@@ -22,6 +22,7 @@ public class ResultLog extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String originLocation;
+    private String resultLocation;
 //    private String resultTable;
     private Boolean isSucceed;
     private Date downloadDate;
