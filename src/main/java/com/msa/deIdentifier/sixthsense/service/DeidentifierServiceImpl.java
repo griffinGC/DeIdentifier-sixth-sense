@@ -29,6 +29,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
     @Override
     public ResultLog deidentification(SummaryData summaryData) throws IOException, SQLException {
         // dataSource 가져오기
+        // 저장위치 수정해야함 -> 파일이름 이용해서 파일의 origin 위치 가져와야함
         String location = "/Users/griffindouble/downloads/";
         StringBuilder fileLocation = new StringBuilder(location);
         fileLocation.append(summaryData.getFileName());
