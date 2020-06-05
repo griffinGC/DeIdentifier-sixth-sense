@@ -15,6 +15,7 @@ public class SummaryData {
     private final String _id;
     private final String userName;
     private final String fileName;
+    private final String originLocation;
     private final List<Info> info;
 //    private final Info[] info;
 }

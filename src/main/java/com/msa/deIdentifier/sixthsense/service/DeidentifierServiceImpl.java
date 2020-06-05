@@ -31,16 +31,13 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
     @Override
     public ResultLog deidentification(SummaryData summaryData) throws IOException, SQLException {
         // dataSource 가져오기
-        // 저장위치 수정해야함 -> 파일이름 이용해서 파일의 origin 위치 가져와야함
-        String location = "/Users/griffindouble/downloads/";
-        StringBuilder fileLocation = new StringBuilder(location);
-        String originFileName = summaryData.getFileName();
-        fileLocation.append(originFileName);
         Charset charset = Charset.forName("EUC-KR");
         char separator = ',';
         boolean containsHeader = true;
+
         // 최초의 원래 위치 지정
-        String originLocation = fileLocation.toString();
+        // 파일의 origin 위치 가져옴
+        String originLocation = summaryData.getOriginLocation();
         DataSource source = DataSource.createCSVSource(originLocation, charset, separator, containsHeader);
 
         // column 지정
@@ -50,7 +47,6 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         }
         // Data 생성
         Data data = createData(source);
-        DataHandle dh = data.getHandle();
 
         // anonymizer
         ARXAnonymizer anonymizer = new ARXAnonymizer();
@@ -77,8 +73,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         ARXResult result = anonymizer.anonymize(data,config);
 
         // 최종 저장위치 수정해야함
-        StringBuilder resultLocation = new StringBuilder(location);
-        resultLocation.append(originFileName.replace(".csv", ""));
+        StringBuilder resultLocation = new StringBuilder(originLocation.replace(".csv", ""));
         resultLocation.append("_");
 
         // 타임스탬프 붙임
@@ -91,13 +86,14 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         // .csv 붙임
         resultLocation.append(".csv");
 
+        // 파일 저장
         String resultFileLocation = resultLocation.toString();
         result.getOutput(false).save(resultFileLocation, separator);
         String checkSaveName = saveCsv(resultFileLocation);
 
         // update resultLog
         ResultLog resultLog = new ResultLog();
-        resultLog.setFileName(originFileName);
+        resultLog.setFileName(summaryData.getFileName());
         resultLog.setOriginLocation(originLocation);
 
         if(!checkSaveName.equals("")){
