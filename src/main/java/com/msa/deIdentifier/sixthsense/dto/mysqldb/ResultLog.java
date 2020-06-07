@@ -27,4 +27,6 @@ public class ResultLog extends BaseTimeEntity {
     private Boolean isSucceed;
     private Date downloadDate;
     private Integer downloadCnt;
+    @Column(nullable = false)
+    private String userName;
 }

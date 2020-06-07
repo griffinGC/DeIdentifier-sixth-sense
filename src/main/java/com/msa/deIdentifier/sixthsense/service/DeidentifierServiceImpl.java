@@ -95,6 +95,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         ResultLog resultLog = new ResultLog();
         resultLog.setFileName(summaryData.getFileName());
         resultLog.setOriginLocation(originLocation);
+        resultLog.setUserName(summaryData.getUserName());
 
         if(!checkSaveName.equals("")){
             resultLog.setIsSucceed(true);
