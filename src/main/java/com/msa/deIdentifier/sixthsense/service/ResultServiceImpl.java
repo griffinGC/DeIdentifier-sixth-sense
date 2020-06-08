@@ -34,4 +34,10 @@ public class ResultServiceImpl implements ResultService{
 
         return resultLog;
     }
+
+    @Override
+    public List<ResultLog> getResultLogByUserName(String userName) {
+
+        return resultLogRepo.findByUserName(userName);
+    }
 }

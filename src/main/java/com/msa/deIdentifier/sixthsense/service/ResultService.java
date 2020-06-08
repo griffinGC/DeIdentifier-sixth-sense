@@ -9,4 +9,5 @@ public interface ResultService {
     List<ResultLog> getResultLogAll();
     ResultLog createResultLog(ResultLog resultLog);
     ResultLog getResultLogByFileName(String fileName);
+    List<ResultLog> getResultLogByUserName(String userName);
 }

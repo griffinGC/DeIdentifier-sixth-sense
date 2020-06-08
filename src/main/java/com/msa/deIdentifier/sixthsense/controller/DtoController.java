@@ -53,4 +53,9 @@ public class DtoController {
         ResultLog checkResult = resultService.createResultLog(resultLog);
         return checkResult;
     }
+
+    @GetMapping("/byUserName/{userName}")
+    public List<ResultLog> getByUserName(@PathVariable String userName){
+        return resultService.getResultLogByUserName(userName);
+    }
 }
