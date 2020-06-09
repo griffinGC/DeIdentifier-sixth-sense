@@ -19,6 +19,7 @@ public class ResultLog extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String fileName;
+    private String resultFileName;
 
     @Column(nullable = false)
     private String originLocation;

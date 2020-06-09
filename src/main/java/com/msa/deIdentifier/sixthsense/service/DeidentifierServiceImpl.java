@@ -87,7 +87,7 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         // 파일 저장
         String resultFileLocation = resultLocation.toString();
         result.getOutput(false).save(resultFileLocation, separator);
-        String checkSaveName = saveCsv(resultFileLocation);
+        String[] checkSaveName = saveCsv(resultFileLocation);
 
         // update resultLog
         ResultLog resultLog = new ResultLog();
@@ -97,7 +97,8 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
 
         if(!checkSaveName.equals("")){
             resultLog.setIsSucceed(true);
-            resultLog.setResultLocation(checkSaveName);
+            resultLog.setResultFileName(checkSaveName[0]);
+            resultLog.setResultLocation(checkSaveName[1]);
         }else{
             resultLog.setIsSucceed(false);
         }
@@ -112,17 +113,23 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         return null;
     }
 
-    public static String saveCsv(String inputFile) throws IOException {
+    public static String[] saveCsv(String inputFile) throws IOException {
+        // 리턴값 지정
+        // 0은 파일 명, 1은 파일 위치
+        String[] returnString = new String[2];
         // 파일 읽기
         File inputPath = new File(inputFile);
 
         // 파일 출력 지정
         StringBuilder resultLocation = new StringBuilder(inputFile.replace(".csv", ""));
         resultLocation.append("_Result.csv");
+        returnString[1] = resultLocation.toString();
+        String[] splitLocation = returnString[1].split("/");
+        returnString[0] = splitLocation[splitLocation.length-1];
 
         System.out.println("input location : " + inputFile);
         System.out.println("result location : " + resultLocation);
-        File outputPath = new File(resultLocation.toString());
+        File outputPath = new File(returnString[1]);
 
         // 파일 입력
         FileInputStream fileInputStream = new FileInputStream(inputPath);
@@ -156,9 +163,11 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
         };
         System.out.println("save success");
         if(outputPath.exists()){
-            return resultLocation.toString();
+            return returnString;
         }else{
-            return "";
+            returnString[0] = "";
+            returnString[1] = "";
+            return returnString;
         }
     }
 
