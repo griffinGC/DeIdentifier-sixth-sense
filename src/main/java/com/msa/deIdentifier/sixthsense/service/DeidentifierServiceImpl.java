@@ -53,17 +53,15 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
 
         for(Info info : infoList){
             String attributeName = info.getColName();
-            if(!attributeName.equals("")){
+            // masking 으로 설정된것은 마스킹 되도록 지정
+            if(info.getSummary().getDeIdentified().equals("masking")){
                 data.getDefinition().setAttributeType(attributeName, AttributeType.QUASI_IDENTIFYING_ATTRIBUTE);
                 data.getDefinition().setMinimumGeneralization(attributeName,1);
 //                data.getDefinition().setMinimumGeneralization(attributeName,);
+            }else{
+                data.getDefinition().setAttributeType(attributeName, AttributeType.INSENSITIVE_ATTRIBUTE);
             }
         }
-        // 첫번째 컬럼에 insensitive 넣음
-        String firstAttribute = infoList.get(0).getColName();
-        System.out.println("firstAttriute: " + firstAttribute);
-        data.getDefinition().resetAttributeType(firstAttribute);
-        data.getDefinition().setAttributeType(firstAttribute, AttributeType.INSENSITIVE_ATTRIBUTE);
 
         ARXConfiguration config = ARXConfiguration.create();
         config.addPrivacyModel(new KAnonymity(2));

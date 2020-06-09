@@ -1,11 +1,12 @@
 package com.msa.deIdentifier.sixthsense.dto.mongodb;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Info {
-    private final String colName;
-    private final Summary summary;
+    private String colName;
+    private Summary summary;
+    private int nullCount;
 }
