@@ -26,12 +26,14 @@ public class DtoController {
     }
     @GetMapping("/getMongoAll")
     public List<SummaryData> getAllMongo(){
+        System.out.println("execute get Mongo!");
         List<SummaryData> summaryDataList = summaryService.getSummaryAll();
         return summaryDataList;
     }
 
     @GetMapping("/getSummary/{fileName}")
     public SummaryData getSummaryDataByFileName(@PathVariable String fileName){
+        System.out.println("execute get Mongo fileName!");
         SummaryData summaryData = summaryService.getSummaryByFileName(fileName);
         return summaryData;
     }

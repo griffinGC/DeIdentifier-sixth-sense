@@ -53,13 +53,12 @@ public class DeidentifierServiceImpl implements  DeidentifierService{
 
         for(Info info : infoList){
             String attributeName = info.getColName();
-            // masking 으로 설정된것은 마스킹 되도록 지정
-            if(info.getSummary().getDeIdentified().equals("masking")){
+            // no라고 써져있는 것 빼고 나머지 마스킹 처리
+            if(info.getSummary().getDeIdentified().equals("no")) {
+                data.getDefinition().setAttributeType(attributeName, AttributeType.INSENSITIVE_ATTRIBUTE);
+            }else{
                 data.getDefinition().setAttributeType(attributeName, AttributeType.QUASI_IDENTIFYING_ATTRIBUTE);
                 data.getDefinition().setMinimumGeneralization(attributeName,1);
-//                data.getDefinition().setMinimumGeneralization(attributeName,);
-            }else{
-                data.getDefinition().setAttributeType(attributeName, AttributeType.INSENSITIVE_ATTRIBUTE);
             }
         }
 
