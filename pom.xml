@@ -17,9 +17,18 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+		<webapp.lib>${basedir}/lib</webapp.lib>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.deidentifier.arx</groupId>
+			<artifactId>arx</artifactId>
+			<version>3.8.0</version>
+			<scope>system</scope>
+			<systemPath>${webapp.lib}/libarx-3.8.0.jar</systemPath>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -96,6 +105,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
