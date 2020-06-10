@@ -3,13 +3,34 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/sixthsense
+      uri: mongodb://mongo:27017/k8s_mongodb
 
   jpa:
     hibernate:
       ddl-auto: update
+
   datasource:
-    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=Asia/Seoul
-    username: root
-    password: choi7687
+    url: jdbc:mysql://mysql:3306/k8sdb?serverTimezone=Asia/Seoul&allowMultiQueries=true
+    username: k8suser
+    password: k8suser
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  devtools:
+    restart:
+      enabled: true
+
+  application:
+    name: deidentified-app-service
+
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+
+#  h2:
+#    console:
+#      enabled: true
+#      path: h2-console
